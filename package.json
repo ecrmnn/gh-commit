@@ -27,6 +27,7 @@
     "mocha": "^2.4.5"
   },
   "dependencies": {
+    "axios": "^0.15.3",
     "promise-sequential": "^1.1.1"
   }
 }
