@@ -4,11 +4,12 @@ const chai = require('chai');
 const expect = require('chai').expect;
 const git = require('../src');
 const axios = require('axios');
+const uuid = require('uuid4');
 require('dotenv').config();
 
 git.config.repo = {
   author: process.env.REPO_AUTHOR,
-  name: process.env.REPO_NAME
+  name: process.env.REPO_NAME + '-' + uuid()
 };
 
 git.config.auth = {
@@ -21,7 +22,7 @@ describe('Module Boilerplate Test Suite', function () {
   describe('Create testing repository on Github', function () {
     before(function (done) {
       axios.post('https://api.github.com/user/repos', {
-        name: process.env.REPO_NAME,
+        name: git.config.repo.name,
         private: false,
         has_issues: true,
         has_wiki: true,
@@ -74,7 +75,7 @@ describe('Module Boilerplate Test Suite', function () {
     before(function (done) {
       axios
         .get('https://raw.githubusercontent.com/' +
-          process.env.REPO_AUTHOR + '/' + process.env.REPO_NAME +
+          process.env.REPO_AUTHOR + '/' + git.config.repo.name +
           '/master/hello.txt'
         )
         .then(response => {
@@ -96,7 +97,7 @@ describe('Module Boilerplate Test Suite', function () {
   describe('Delete testing repository on Github', function () {
     before(function (done) {
       axios
-        .delete('https://api.github.com/repos/' + process.env.REPO_AUTHOR + '/' + process.env.REPO_NAME, {
+        .delete('https://api.github.com/repos/' + process.env.REPO_AUTHOR + '/' + git.config.repo.name, {
           auth: git.config.auth
         })
         .then(response => {
