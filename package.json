@@ -1,5 +1,5 @@
 {
-  "name": "git-commit",
+  "name": "gh-commit",
   "version": "1.0.0",
   "description": "Fastest way of committing new files to Github",
   "main": "src/index.js",
@@ -8,9 +8,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/ecrmnn/git-commit"
+    "url": "https://github.com/ecrmnn/gh-commit"
   },
-  "keywords": [],
+  "keywords": [
+    "github",
+    "git",
+    "commit"
+  ],
   "author": {
     "name": "Daniel Eckermann",
     "email": "danieleckermann@gmail.com",
@@ -18,9 +22,9 @@
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ecrmnn/git-commit/issues"
+    "url": "https://github.com/ecrmnn/gh-commit/issues"
   },
-  "homepage": "https://github.com/ecrmnn/git-commit",
+  "homepage": "https://github.com/ecrmnn/gh-commit",
   "devDependencies": {
     "chai": "^3.5.0",
     "dotenv": "^4.0.0",
