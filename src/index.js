@@ -5,12 +5,12 @@ const sequential = require('promise-sequential');
 
 const config = {
   auth: {
-    username: null,
-    password: null
+    username: null || process.env.GITHUB_USERNAME,
+    password: null || process.env.GITHUB_PASSWORD
   },
   repo: {
-    author: null,
-    name: null
+    author: null || process.env.GITHUB_AUTHOR,
+    name: null || process.env.GITHUB_REPO_NAME
   }
 }
 

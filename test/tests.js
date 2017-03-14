@@ -20,6 +20,8 @@ git.config.auth = {
 describe('Module Boilerplate Test Suite', function () {
 
   describe('Create testing repository on Github', function () {
+    let results;
+
     before(function (done) {
       axios.post('https://api.github.com/user/repos', {
         name: git.config.repo.name,
@@ -31,7 +33,7 @@ describe('Module Boilerplate Test Suite', function () {
         auth: git.config.auth
       })
         .then(response => {
-          console.log(response.data);
+          results = response.data;
           done();
         })
         .catch(err => {
@@ -41,11 +43,14 @@ describe('Module Boilerplate Test Suite', function () {
     });
 
     it('Create repository', function () {
-      expect(true).to.eql(true);
+      expect(results.id).to.be.a('number');
+      expect(results.name).to.be.eql(git.config.repo.name);
     });
   });
 
   describe('Create files in repository', function () {
+    let success = false;
+
     before(function (done) {
       git.commit([{
         path: 'hello.txt',
@@ -54,18 +59,18 @@ describe('Module Boilerplate Test Suite', function () {
         path: 'xoxo.txt',
         content: 'hello from xoxo.txt'
       }])
-        .then(response => {
-          console.log(response.data);
+        .then(() => {
+          success = true;
           done();
         })
-        .catch(err => {
-          console.log(err);
+        .catch(() => {
+          success = false;
           done();
         });
     });
 
-    it('Create repository', function () {
-      expect(true).to.eql(true);
+    it('Create files', function () {
+      expect(success).to.eql(true);
     });
   });
 
@@ -79,7 +84,6 @@ describe('Module Boilerplate Test Suite', function () {
           '/master/hello.txt'
         )
         .then(response => {
-          console.log(response.data);
           results = response.data;
           done();
         })
@@ -89,7 +93,7 @@ describe('Module Boilerplate Test Suite', function () {
         });
     });
 
-    it('Create repository', function () {
+    it('Validate contents of hello.txt', function () {
       expect(results).to.eql('hello from hello.txt');
     });
   });
@@ -108,10 +112,6 @@ describe('Module Boilerplate Test Suite', function () {
           console.log(err);
           done();
         });
-    });
-
-    it('Create repository', function () {
-      expect(true).to.eql(true);
     });
   });
 });
